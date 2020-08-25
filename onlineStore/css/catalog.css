@@ -1,0 +1,17 @@
+.item{
+    display: inline-block;
+    width: 25rem;
+    height: 37.5rem;
+    border: 1px solid #dedede;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+.item img{
+    width: 20rem;
+    height: 20rem;
+    margin-bottom: 1rem;
+}
+.itemPrice{
+    font-size: 2rem;
+    color: rgb(160,30,30);
+}
