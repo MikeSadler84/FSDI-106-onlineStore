@@ -1,22 +1,74 @@
-function init(){
-    console.log("Admin Page");
-    // add the click or press button events here
-    $(".btn-primary").click(register);
+/* AJAX
+    http://restclass.azurewebsites.net/api/points
+    http verbs
+    POST: recieve data
+    GET: get info
+    PUT: update some existing elements
+    PATCH: update part of an existing element
+    DELETE: remove any existing element
+*/
+
+//object constructor for the item
+let c=1;
+class Item {
+    constructor(code, title, price, category, image) {
+        this.code = code;
+        this.title = title;
+        this.price = price;
+        this.category = category;
+        this.image = image;
+        this.user = "Michael";
+        this.id=c;
+        c++;
+    }
 }
-window.onload=init;
+
 
 function register(){
     //get values from the inputs
     //save values in variables
     //display the values on the console
     let code= $("#codeText").val();
-    console.log(code);
+    
     let title=$("#titleText").val();
-    console.log(title);
+    
     let price=$("#priceText").val();
-    console.log(price);
+    
     let category=$("#categoryText").val();
-    console.log(category);
+    
     let image=$("#imageText").val();
-    console.log(image);
+    
+    var item= new Item(code, title, price, category, image);
+    console.log(item);
+
+    //create ajax request
+    $.ajax({
+        url:"http://restclass.azurewebsites.net/api/points",
+        type: "POST",
+        data:JSON.stringify(item),
+        contentType: "application/json",
+        success:function(response){
+            console.log("We did it!", response);
+        },
+        error:function(e){
+            console.log("Ouch!", e);
+        }
+    });
+
 }
+
+
+function init(){
+    console.log("Admin Page");
+    // add the click or press button events here
+    // $(".btn-primary").click(register);
+    $(".btn-primary").click(function(){
+        if ($("#codeText").val() === "" || $("#titleText").val() === "" || $("#priceText").val() === "" || $("#categoryText").val() === ""){
+            alert("Cannot leave input fields blank");
+            return false;
+        } else{
+            register();
+        }
+    }); 
+}
+window.onload=init;
