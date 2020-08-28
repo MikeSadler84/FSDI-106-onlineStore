@@ -24,6 +24,8 @@ function fetchData(){
 //         image:"https://rukminim1.flixcart.com/image/352/352/k1fbmvk0pkrrdj/television-refurbished/z/h/v/u-ua43nu6100kxxl-ua43nu6100klxl-a-samsung-original-imafjmyxejztt58g.jpeg?q=70"
 //         }
 //     ]
+
+
     $.ajax({
         url:"http://restclass.azurewebsites.net/api/points",
         type: "GET",
@@ -62,13 +64,17 @@ function displayCatalog(){
     <button class="btn btn-primary">Add to Cart</button>
     </div>
     `;
-    $(".catalog").append(syntax)
+    $(".catalog").append(syntax);
     //display the items on the HTML
     }
 }
 
-function searchCatalog(){
+function initCatalog(){
+    console.log("Catalog Page");
+    fetchData();
+    displayCatalog();
 
+    $("#searchButton").click(function(){
         var ss= $("#searchText").val(); // val = value
         var stringSearch = ss.toLowerCase();
         console.log(stringSearch);
@@ -77,18 +83,14 @@ function searchCatalog(){
             console.log(selected);
             if(selected.category.toLowerCase() === stringSearch || selected.title.toLowerCase() === stringSearch){
                 $(`#${selected.id}`).removeClass("actives").addClass("actives");
-
+                console.log(selected.id);
+                $("#searchText").val("");
             }else{
                 $(`#${selected.id}`).removeClass("actives");
+                $("#searchText").val("");
             }
         }
-}
-
-function initCatalog(){
-    console.log("Catalog Page");
-    fetchData();
-    displayCatalog();
-    $(".btn-outline-success").click(searchCatalog);
+    });
     
 }
 window.onload=initCatalog;

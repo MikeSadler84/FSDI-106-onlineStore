@@ -68,6 +68,11 @@ function init(){
             return false;
         } else{
             register();
+            $("#codeText").val("");
+            $("#titleText").val("");
+            $("#priceText").val("");
+            $("#categoryText").val("");
+            $("#imageText").val("");
         }
     }); 
 }
