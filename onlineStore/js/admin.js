@@ -9,7 +9,7 @@
 */
 
 //object constructor for the item
-let c=1;
+var c=1;
 class Item {
     constructor(code, title, price, category, image) {
         this.code = code;

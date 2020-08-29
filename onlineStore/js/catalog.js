@@ -69,6 +69,7 @@ function displayCatalog(){
     }
 }
 
+
 function initCatalog(){
     console.log("Catalog Page");
     fetchData();
@@ -80,13 +81,13 @@ function initCatalog(){
         console.log(stringSearch);
         for(var i=0;i<catalog.length;i++){
             var selected=catalog[i];
-            console.log(selected);
+            // console.log(selected);
             if(selected.category.toLowerCase() === stringSearch || selected.title.toLowerCase() === stringSearch){
-                $(`#${selected.id}`).removeClass("actives").addClass("actives");
-                console.log(selected.id);
+                $(`#${selected.id}`).removeClass("searched").addClass("searched");
+                console.log(`Id #${selected.id}, ${selected.title}, is in the database`); //The search is working but I can't get the class to add for some reason
                 $("#searchText").val("");
             }else{
-                $(`#${selected.id}`).removeClass("actives");
+                $(`#${selected.id}`).removeClass("searched");
                 $("#searchText").val("");
             }
         }
