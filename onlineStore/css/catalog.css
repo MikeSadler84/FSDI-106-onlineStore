@@ -18,3 +18,34 @@
 .searched{
     border: 2px solid blue;
 }
+.cat{
+    text-align: center;
+}
+.cat h1{
+    margin-right: auto;
+    margin-left: auto;
+}
+.flex-container{
+    display:flex;
+    padding-top: 1rem;
+}
+.categories li{
+    border-right: 3px solid #dedede;
+    padding-right: 1.5rem;
+    list-style-type: none;
+    line-height: 2;
+}
+.categories{
+    margin-top: .5rem;
+}
+
+.catalog{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+a{
+    text-decoration: none;
+}
+li{
+    cursor: pointer;
+}

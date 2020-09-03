@@ -9,7 +9,7 @@
 */
 
 //object constructor for the item
-var c=1;
+var c=0;
 class Item {
     constructor(code, title, price, category, image) {
         this.code = code;
@@ -49,6 +49,10 @@ function register(){
         contentType: "application/json",
         success:function(response){
             console.log("We did it!", response);
+            $("#alert-box").removeClass("hidden");
+            setTimeout(function(){
+                $("#alert-box").addClass("hidden");
+            },3000);
         },
         error:function(e){
             console.log("Ouch!", e);
@@ -75,5 +79,10 @@ function init(){
             $("#imageText").val("");
         }
     }); 
+    $("#imageText").keypress(function(e){
+        if(e.key === "Enter"){
+            $(".btn-primary").click();
+        }
+    });
 }
 window.onload=init;

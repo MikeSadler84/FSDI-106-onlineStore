@@ -1,6 +1,7 @@
 //Global array
 let catalog = [];
-
+let categories=[];
+console.log(categories);
 function fetchData(){
 //     //get data from the server
 //     //use an object literal
@@ -37,9 +38,11 @@ function fetchData(){
                 let item=allitems[i];
                 if(item.user === "Michael"){
                 catalog.push(item);
+                categories.push(item.category);
             }
         }
             displayCatalog();
+            // displayCategories();
         },
         error:function(details){
             console.log("Error getting data", details);
@@ -47,6 +50,24 @@ function fetchData(){
     });
     //other instructions go here if needed
 }
+function displayCategories(){
+    //travel array
+    //get each cat from array
+    //create syntax for li
+    //append the syntax to the #categories
+    // for(let i=0;i<categories.length;i++){
+    //     let item=categories[i];
+    //     console.log(item);
+        let syntax=`
+        <li id="gaming">Gaming</li>
+        <li id="phones">Phones</li>
+        <li id="electronics">Electronics</li>
+        <li id="apparel">Apparel</li>`;
+        $("#categories").append(syntax);
+    //}
+}
+
+
 
 function displayCatalog(){
     //travel the array of items with for loop
@@ -54,6 +75,10 @@ function displayCatalog(){
     let item=catalog[i]; //This will give us the item from the catalog
     console.log(item);
     //get each item
+    drawItem(item);
+    }
+}
+function drawItem(item){
     let syntax=`
     <div class="item">
     <p>${item.code}</p>
@@ -66,7 +91,70 @@ function displayCatalog(){
     `;
     $(".catalog").append(syntax);
     //display the items on the HTML
-    }
+}
+
+function catSearch(){
+    $("#gaming").click(function(){
+        $(".catalog").html("");
+        for(var i=0;i<catalog.length;i++){
+            var selected=catalog[i];
+            if(selected.category === "Gaming"){
+                drawItem(selected); 
+                console.log(selected);
+            }
+        }
+    });
+    $("#phones").click(function(){
+        $(".catalog").html("");
+        for(var i=0;i<catalog.length;i++){
+            var selected=catalog[i];
+            if(selected.category === "Phones"){
+                drawItem(selected); 
+                console.log(selected);
+            }
+        }
+    });
+    $("#electronics").click(function(){
+        $(".catalog").html("");
+        for(var i=0;i<catalog.length;i++){
+            var selected=catalog[i];
+            if(selected.category === "Electronics"){
+                drawItem(selected); 
+                console.log(selected);
+            }
+        }
+    });
+    $("#apparel").click(function(){
+        $(".catalog").html("");
+        for(var i=0;i<catalog.length;i++){
+            var selected=catalog[i];
+            if(selected.category === "Apparel"){
+                drawItem(selected); 
+                console.log(selected);
+            }
+        }
+    });
+}
+
+function search(){
+    $("#searchButton").click(function(){
+        var ss= $("#searchText").val(); // val = value
+        var stringSearch = ss.toLowerCase();
+        console.log(stringSearch);
+        $(".catalog").html("");
+        for(var i=0;i<catalog.length;i++){
+            var selected=catalog[i];
+            if(selected.category.toLowerCase().includes(stringSearch) || selected.title.toLowerCase().includes(stringSearch) || selected.code.toLowerCase().includes(stringSearch)){
+               drawItem(selected);  
+                // $(`${selected.title}`).show(); 
+                   
+                console.log(`Id #${selected.id}, ${selected.title}, is in the database`);
+                $("#searchText").val("");
+            }else{
+                $("#searchText").val("");
+            }
+        }
+    });
 }
 
 
@@ -74,24 +162,14 @@ function initCatalog(){
     console.log("Catalog Page");
     fetchData();
     displayCatalog();
-
-    $("#searchButton").click(function(){
-        var ss= $("#searchText").val(); // val = value
-        var stringSearch = ss.toLowerCase();
-        console.log(stringSearch);
-        for(var i=0;i<catalog.length;i++){
-            var selected=catalog[i];
-            // console.log(selected);
-            if(selected.category.toLowerCase() === stringSearch || selected.title.toLowerCase() === stringSearch){
-                $(`#${selected.id}`).removeClass("searched").addClass("searched");
-                console.log(`Id #${selected.id}, ${selected.title}, is in the database`); //The search is working but I can't get the class to add for some reason
-                $("#searchText").val("");
-            }else{
-                $(`#${selected.id}`).removeClass("searched");
-                $("#searchText").val("");
-            }
+    displayCategories();
+    search();
+    catSearch();
+    $("#searchText").keypress(function(e){
+        if(e.key === "Enter"){
+            $("#searchButton").click();
         }
     });
-    
+
 }
 window.onload=initCatalog;
